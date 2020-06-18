@@ -1,0 +1,116 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+}
+
+header {
+    background-color: #1E90FF;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.4);
+    margin-bottom: 50px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 660px;
+    border-collapse: collapse;
+}
+
+table, tr, th, td {
+    border: solid 1px;
+    padding: 10px;
+    text-align: center;
+}
+
+img.item-image {
+    width: 200px;
+    height: 250px;
+    object-fit: contain;
+}
+
+caption {
+    text-align: left;
+}
+
+a {
+    text-decoration: none;
+}
+
+.item-area {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+
+.height-70px {
+    height: 70px;
+}
+
+.line-header {
+    margin: 0;
+    border: 2px solid #C0C0C0;
+}
+
+img.logo {
+    margin-top: 10px;
+    float: left;
+    height: 45px;
+}
+
+.menu-item {
+    float: right;
+    color: white;
+    font-size: 16px;
+}
+
+a.menu-item.logout {
+    margin: 15px 0 0 10px;
+}
+
+a img.cart {
+    width: 50px;
+    height: 50px;
+}
+
+a:hover.cart {
+    opacity: 0.5;
+}
+
+.padding-left-50 {
+    padding-left: 50px;
+}
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px;
+}
+
+/* 商品一覧ページ */
+
+#flex {
+    display: flex;
+}
+
+#flex .product {
+    text-align: center;
+    margin: 10px;
+    float: left;
+}
+
+#flex span {
+    display: block;
+    margin: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#submit {
+    clear: both;
+}

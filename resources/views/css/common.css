@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+.item-area {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.height-70px {
+    height: 70px;
+}
