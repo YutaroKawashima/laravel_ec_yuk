@@ -22,6 +22,14 @@
                         <input type="password" name="password" class="pass-form" value="{{ old('password') }}">
                     </p>
                 </p>
+                <p class="pass_confirm-area">
+                    <label for="password_confirmation">
+                        Password（確認用）
+                    </label>
+                    <p>
+                        <input type="password" name="password_confirmation" class="pass-form" value="{{ old('password') }}">
+                    </p>
+                </p>
                 <div class = "submit-area">
                     <button type="submit"  value="send" class="submit-login">
                         Create

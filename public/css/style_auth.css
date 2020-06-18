@@ -162,7 +162,7 @@ div.form-title,label {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-p.name-area,p.pass-area {
+p.name-area,p.pass-area,p.pass_confirm-area {
     margin-top: 30px;
 }
 
