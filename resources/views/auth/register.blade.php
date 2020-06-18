@@ -11,7 +11,7 @@
                         Username
                     </label>
                     <p>
-                        <input type="text" name="name" class="name-form" value="">
+                        <input type="text" name="name" class="name-form" value="{{ old('name') }}">
                     </p>
                 </p>
                 <p class="pass-area">
@@ -19,7 +19,7 @@
                         Password
                     </label>
                     <p>
-                        <input type="password" name="password" class="pass-form" value="">
+                        <input type="password" name="password" class="pass-form" value="{{ old('password') }}">
                     </p>
                 </p>
                 <div class = "submit-area">
