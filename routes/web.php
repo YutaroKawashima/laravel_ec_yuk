@@ -29,7 +29,8 @@ Route::post('/cart', 'CartController@update_amount');
 Route::delete('/cart/{id}', 'CartController@delete');
 
 //購入完了ページ
-Route::get('/finish', 'FinishController@finish');
+//Route::get('/finish', 'CartController@finish');
+Route::post('/finish', 'CartController@finish_shopping');
 
 //商品管理ページ
 Route::get('/management', 'AuthController@management');

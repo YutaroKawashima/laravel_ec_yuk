@@ -81,4 +81,29 @@ class CartController extends Controller
 
     }
 
+    public function finish_shopping(Request $request){
+
+        $title='購入完了ページ';
+        $user=Auth::user();
+        $total_price = $this->total($user->id);
+
+        $cart = \App\Cart::where('user_id', $user->id)->get();
+
+        foreach ($cart as $cart_items) {
+            $stock = \App\Stock::where('product_id', $cart_items->product_id)->first();
+
+            $stock->stock = $stock->stock - $cart_items->amount;
+
+            $stock->save();
+
+            $cart_items->delete();
+        }
+
+        return view('finish', [
+            'title' => $title,
+            'cart' => $cart,
+            'total_price' => $total_price,
+        ]);
+    }
+
 }

@@ -58,9 +58,11 @@
                 </span>
             </div>
         </div>
-        <form method = "post" action = "./finish.php">
+        <form method = "post" action = "{{ url('finish') }}">
+            {{ csrf_field() }}
             <div class = "purchase_button">
                 <input type = "submit" value = "購入する">
+                <input type = "hidden" name = "total_price" value = "{{ $total_price }}">
                 <input type = "hidden" name = "sql_kind" value = "purchase">
             </div>
         </form>
