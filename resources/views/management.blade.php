@@ -57,7 +57,8 @@
                 </tr>
             @forelse($product as $item)
                 <tr>
-                    <form method = "post">
+                    <form method = "post" action="{{ url('/management/change') }}">
+                        {{ csrf_field() }}
                         <td>
                             <img class = "item-image" src = "{{ asset('./storage/photos/'.$item->image) }}">
                         </td>
@@ -69,12 +70,11 @@
                         </td>
                         <td>
                             <input type = "text" class = "input_text_width text_align_right" name = "update_stock" value = "{{ $item->stock->stock }}">
-                            <input type = "hidden" name = "product_id" value = "{{ $item->id }}">
-                            <input type = "hidden" name = "sql_kind" value = "update"> <br>
+                            <input type = "hidden" name = "product_id" value = "{{ $item->id }}"> <br>
                             <input type = "submit" value = "変更">
                         </td>
                     </form>
-                    <form method = "post">
+                    <form method = "post" action="{{ url('/management/change_s') }}">
                         {{ csrf_field() }}
                         <td>
                             @if ($item->status === 1)
@@ -89,11 +89,11 @@
 
                             <input type = "hidden" name = "update_status" value = "{{ $item->status }}">
                             <input type = "hidden" name = "product_id" value = "{{ $item->id }}">
-                            <input type = "hidden" name = "sql_kind" value = "change">
                         </td>
                     </form>
-                    <form method = "post">
+                    <form method = "post" action="{{ url('management/'. $item->id) }}">
                         {{ csrf_field() }}
+                        {{ method_field('delete') }}
                         <td>
                             <input type = "submit" name = "delete_data" value = "削除">
 

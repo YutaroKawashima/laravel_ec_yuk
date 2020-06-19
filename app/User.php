@@ -42,22 +42,4 @@ class User extends Authenticatable
         );
     }
 
-    public function add_to_cart($product_id){
-
-        if ( $this->carts->where('product_id', $product_id)->isEmpty() ) {
-
-            $cart = new Cart();
-
-            $cart->user_id = $user->id;
-            $cart->product_id = $product_id;
-            $cart->amount = 1;
-
-        } else {
-
-            $cart = $this->carts->where('product_id', $product_id)->first();
-            $cart->amount += 1;
-        }
-
-        $cart->save();
-    }
 }

@@ -68,12 +68,12 @@ img.logo {
     float: right;
     color: white;
     font-size: 18px;
-    margin-top: 20px;
+    margin-top: 10px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 a.menu-item.logout {
-    margin: 15px 0 0 10px;
+    margin: 0 0 0 10px;
 }
 
 a img.cart {
@@ -127,6 +127,19 @@ a:hover.cart {
 
 .direct-L:hover,.direct-R:hover {
     color: #F0E68C;
+}
+
+button.menu-item.logout {
+    border: none;
+    background-color: transparent;
+}
+
+button.menu-item.logout:hover {
+    color: #F0E68C;
+}
+
+button[type="submit"]:focus {
+    outline: 0;
 }
 
 /* ログインページ */

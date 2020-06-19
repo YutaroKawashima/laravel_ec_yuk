@@ -7,11 +7,11 @@
             <div class="form-item form-title"> Login </div>
             <div class="form-item">
                 <p class="name-area">
-                    <label for="user_name">
+                    <label for="name">
                         Username
                     </label>
                     <p>
-                        <input type="text" name="user_name" class="name-form" required>
+                        <input type="text" name="name" class="name-form" required>
                     </p>
                 </p>
                 <p class="pass-area">

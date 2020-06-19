@@ -39,6 +39,10 @@ a {
     text-decoration: none;
 }
 
+li {
+    list-style-type: none;
+}
+
 .item-area {
     max-width: 960px;
     margin: 0 auto;
@@ -66,8 +70,18 @@ img.logo {
     font-size: 16px;
 }
 
-a.menu-item.logout {
+button.menu-item.logout {
     margin: 15px 0 0 10px;
+    border: none;
+    background-color: transparent;
+}
+
+button.menu-item.logout:hover {
+    color: #F0E68C;
+}
+
+button[type="submit"]:focus {
+    outline: 0;
 }
 
 a img.cart {
@@ -113,4 +127,10 @@ a:hover.cart {
 
 #submit {
     clear: both;
+}
+
+/*　カート内商品ページ */
+
+.cart-item {
+    display: flex;
 }

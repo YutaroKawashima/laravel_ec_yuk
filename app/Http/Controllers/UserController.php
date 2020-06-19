@@ -22,13 +22,4 @@ class UserController extends Controller
         ]);
     }
 
-    public function cart(){
-        $title='カート内商品';
-        $cart=\App\Cart::all();
-
-        return view('cart', [
-            'title' => $title,
-            'cart' => $cart
-        ]);
-    }
 }

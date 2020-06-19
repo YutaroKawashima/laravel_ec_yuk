@@ -21,9 +21,9 @@
             @else
                 <form method="post" action="{{ url('logout') }}" class="menu-item">
                     {{ csrf_field() }}
-                    <a href="{{ url('logout') }}">
-                        Logout
-                    </a>
+                    <button type="submit" class = "menu-item logout">
+                        ログアウト
+                    </button>
                 </form>
             @endguest
         </div>

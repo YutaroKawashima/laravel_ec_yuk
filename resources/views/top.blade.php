@@ -9,6 +9,7 @@
     <h2 class = "item-area padding-left-50 padding-top-20">商品一覧</h2>
     @forelse($product as $item)
         <form method = "post">
+            {{ csrf_field() }}
             <div id = "flex" class = "item-area">
                 <div class = "product">
                     <span>
@@ -27,6 +28,8 @@
             </div>
         </form>
         @empty
-        <p> データがありません </p>
+        <div class = "item-area">
+            <p> データがありません </p>
+        </div>
     @endforelse
 @endsection
