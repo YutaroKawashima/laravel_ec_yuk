@@ -12,9 +12,6 @@
                 <img class = "logo" src = "{{ asset('./storage/images/shop-logo.png') }}" alt = "CodeSHOP">
             </a>
             @guest
-                <a href="{{ url('register') }}" class="menu-item direct-R">
-                    Register
-                </a>
                 <a href="{{ url('admin/login') }}" class="menu-item direct-L">
                     Login
                 </a>

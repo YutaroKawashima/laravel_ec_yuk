@@ -33,8 +33,25 @@ Route::delete('/cart/{id}', 'CartController@delete');
 Route::post('/finish', 'CartController@finish_shopping');
 
 //商品管理ページ
-Route::get('/management', 'AuthController@management');
-Route::post('/management', 'AuthController@conditions');
-Route::post('/management/change', 'AuthController@stock_change');
-Route::post('/management/change_s', 'AuthController@status_change');
-Route::delete('/management/{id}', 'AuthController@delete');
+// Route::get('/management', 'AuthController@management');
+
+
+//管理者ページ
+Route::get('/admin/login', 'Admin\LoginController@showAdminForm')->name('admin.login');
+Route::post('/admin/login', 'Admin\LoginController@login');
+Route::post('/logout', 'Admin\LoginController@logout')->name('logout');
+
+// Route::group(['prefix' => 'admin', 'middleware' => 'auth_admin'], function(){
+//     Route::get('/management', 'AuthController@management');
+
+//     Route::post('/management', 'AuthController@conditions');
+//     Route::post('/management/change', 'AuthController@stock_change');
+//     Route::post('/management/change_s', 'AuthController@status_change');
+//     Route::delete('/management/{id}', 'AuthController@delete');
+// });
+
+Route::get('/admin/management', 'AuthController@management')->middleware('auth_admin');
+Route::post('/admin/management', 'AuthController@conditions');
+Route::post('/admin/management/change', 'AuthController@stock_change');
+Route::post('/admin/management/change_s', 'AuthController@status_change');
+Route::delete('/admin/management/{id}', 'AuthController@delete');

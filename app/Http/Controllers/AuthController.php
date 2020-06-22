@@ -8,6 +8,12 @@ use App\Http\Requests\StockRequest;
 
 class AuthController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth_admin')->except('logout');
+    }
+
     public function management() {
         $title = '商品管理ページ';
         $product = \App\Product::all();

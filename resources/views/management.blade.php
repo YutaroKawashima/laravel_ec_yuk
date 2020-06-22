@@ -7,7 +7,7 @@
             <span class = "red">{{ $error }}</span>
             @empty
         @endforelse
-        <form method="post" action="{{ url('/management') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ url('/admin/management') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div>
                 <label>
@@ -57,7 +57,7 @@
                 </tr>
             @forelse($product as $item)
                 <tr>
-                    <form method = "post" action="{{ url('/management/change') }}">
+                    <form method = "post" action="{{ url('/admin/management/change') }}">
                         {{ csrf_field() }}
                         <td>
                             <img class = "item-image" src = "{{ asset('./storage/photos/'.$item->image) }}">
@@ -74,7 +74,7 @@
                             <input type = "submit" value = "変更">
                         </td>
                     </form>
-                    <form method = "post" action="{{ url('/management/change_s') }}">
+                    <form method = "post" action="{{ url('/admin/management/change_s') }}">
                         {{ csrf_field() }}
                         <td>
                             @if ($item->status === 1)
@@ -91,7 +91,7 @@
                             <input type = "hidden" name = "product_id" value = "{{ $item->id }}">
                         </td>
                     </form>
-                    <form method = "post" action="{{ url('management/'. $item->id) }}">
+                    <form method = "post" action="{{ url('/admin/management/'. $item->id) }}">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
                         <td>
