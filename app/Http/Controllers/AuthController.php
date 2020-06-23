@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddRequest;
 use App\Http\Requests\StockRequest;
+use App\Service\ProductService;
 
 class AuthController extends Controller
 {
@@ -12,6 +13,8 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth_admin')->except('logout');
+
+        $this->product_service = new ProductService();
     }
 
     public function management() {
@@ -30,59 +33,23 @@ class AuthController extends Controller
 
         $image = $request->file('image');
 
-        if (isset($image) === TRUE ) {
-            $ext = $image->guessExtension();
+        $this->cart_service->add_product($request);
 
-            $file_name = str_random(20) . '{$ext}';
-
-            $path = $image->storeAs('photos', $file_name, 'public');
-        }
-
-        $product = new \App\Product;
-
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->image = $file_name;
-        $product->status = $request->status;
-        $product->save();
-
-
-        $stock = new \App\Stock;
-
-        $stock->product_id = $product->id;
-        $stock->stock = $request->stock;
-        $stock->save();
-
-        return redirect('/management');
+        return redirect('/admin/management');
     }
 
     public function stock_change(StockRequest $request){
-        $stock = \App\Stock::where('product_id', $request->product_id)->first();
 
-        $stock->stock = $request->update_stock;
+        $this->product_service->update_stock($request);
 
-        $stock->save();
-
-        return redirect('/management');
+        return redirect('/admin/management');
     }
 
     public function status_change(Request $request){
 
-        $status = \App\Product::where('id', $request->product_id)->first();
+        $this->product_service->update_status($request);
 
-        if ( $request->change_status === '公開 → 非公開' ) {
-
-            $status->status = 0;
-
-        } else if ( $request->change_status === '非公開 → 公開' ) {
-
-            $status->status = 1;
-
-        }
-
-        $status->save();
-
-        return redirect('/management');
+        return redirect('/admin/management');
 
     }
 
@@ -92,7 +59,7 @@ class AuthController extends Controller
 
         $product->delete();
 
-        return redirect('/management');
+        return redirect('/admin/management');
 
     }
 }
