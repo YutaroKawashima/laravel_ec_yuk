@@ -6,6 +6,7 @@
         <link rel = "stylesheet" href = "{{ asset('/css/style_auth.css') }}">
     </head>
     <body>
+
     <header>
         <div class = "item-area height-70px">
             <a href = "{{ url('management') }}">
