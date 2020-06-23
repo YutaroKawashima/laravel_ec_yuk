@@ -10,9 +10,9 @@ use App\Service\CartService;
 class CartController extends Controller
 {
 
-    public function __construct(){
+    public function __construct(CartService $cart_service){
 
-        $this->cart_service = new CartService();
+        $this->cart_service = $cart_service;
     }
 
     public function cart(){

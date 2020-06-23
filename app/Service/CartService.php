@@ -4,7 +4,16 @@ namespace App\Service;
 
 use App\Cart;
 
+use App\Repositories\Cart\CartRepositoryInterface;
+
 class CartService {
+
+    private $cart_repository;
+
+    public function __construct(CartRepositoryInterface $cart_repository)
+    {
+        $this->cart_repository = $cart_repository;
+    }
 
     public function total($user_id){
 
@@ -20,45 +29,16 @@ class CartService {
 
     public function add_product($user,$request){
 
-        if ( $user->carts->where('product_id', $request->product_id)->isEmpty() ) {
-
-            $cart = new \App\Cart;
-
-            $cart->user_id = $user->id;
-            $cart->product_id = $request->product_id;
-            $cart->amount = 1;
-
-        } else {
-
-            $cart = $user->carts->where('product_id', $request->product_id)->first();
-            $cart->amount += 1;
-        }
-
-        $cart->save();
+        $this->cart_repository->addProductToCart($user,$request);
     }
 
     public function update_cart($user,$request){
 
-        $cart = \App\Cart::where('user_id', $user->id)->get();
-        $amount = $cart->where('product_id',$request->product_id)->first();
-
-        $amount->amount = $request->amount;
-
-        $amount->save();
+        $this->cart_repository->updateAmountRecordInCart($user,$request);
     }
 
     public function finish($user){
 
-        $cart = \App\Cart::where('user_id', $user->id)->get();
-
-        foreach ($cart as $cart_items) {
-            $stock = \App\Stock::where('product_id', $cart_items->product_id)->first();
-
-            $stock->stock = $stock->stock - $cart_items->amount;
-
-            $stock->save();
-
-            $cart_items->delete();
-        }
+        $this->cart_repository->doShoppingFromCart($user);
     }
 }
