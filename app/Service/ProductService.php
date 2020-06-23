@@ -2,9 +2,20 @@
 
 namespace App\Service;
 
+use App\Repositories\Product\ProductRepositoryInterface;
+
 class ProductService {
 
+    private $product_repository;
+
+    public function __construct(ProductRepositoryInterface $product_repository)
+    {
+        $this->product_repository = $product_repository;
+    }
+
     public function add_product($request){
+
+        $file_name = '';
 
         $image = $request->file('image');
 
@@ -16,45 +27,16 @@ class ProductService {
             $path = $image->storeAs('photos', $file_name, 'public');
         }
 
-        $product = new \App\Product;
+        $this->product_repository->addProductAndStockRecord($file_name,$request);
 
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->image = $file_name;
-        $product->status = $request->status;
-        $product->save();
-
-
-        $stock = new \App\Stock;
-
-        $stock->product_id = $product->id;
-        $stock->stock = $request->stock;
-        $stock->save();
-    }
-
-    public function update_stock($request){
-
-        $stock = \App\Stock::where('product_id', $request->product_id)->first();
-
-        $stock->stock = $request->update_stock;
-
-        $stock->save();
     }
 
     public function update_status($request){
-
-        $status = \App\Product::where('id', $request->product_id)->first();
-
-        if ( $request->change_status === '公開 → 非公開' ) {
-
-            $status->status = 0;
-
-        } else if ( $request->change_status === '非公開 → 公開' ) {
-
-            $status->status = 1;
-
-        }
-
-        $status->save();
+        $this->product_repository->changeStatusPrivateOrPublic($request);
     }
+
+    public function delete_product($id){
+        $this->product_repository->deleteProductAndStock($id);
+    }
+
 }

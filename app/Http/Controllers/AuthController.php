@@ -7,19 +7,21 @@ use App\Http\Requests\AddRequest;
 use App\Http\Requests\StockRequest;
 use App\Service\ProductService;
 
+
 class AuthController extends Controller
 {
 
-    public function __construct()
+    public function __construct(ProductService $product_service)
     {
         $this->middleware('auth_admin')->except('logout');
 
-        $this->product_service = new ProductService();
+        $this->product_service = $product_service;
     }
 
     public function management() {
         $title = '商品管理ページ';
         $product = \App\Product::all();
+        //dd($product->image);
 
         return view('management', [
             'title' => $title,
@@ -33,7 +35,7 @@ class AuthController extends Controller
 
         $image = $request->file('image');
 
-        $this->cart_service->add_product($request);
+        $this->product_service->add_product($request);
 
         return redirect('/admin/management');
     }
@@ -55,9 +57,7 @@ class AuthController extends Controller
 
     public function delete($id){
 
-        $product = \App\Product::find($id);
-
-        $product->delete();
+        $this->product_service->delete_product($id);
 
         return redirect('/admin/management');
 
