@@ -19,13 +19,11 @@ class AuthController extends Controller
     }
 
     public function management() {
-        $title = '商品管理ページ';
+
         $product = \App\Product::all();
-        //dd($product->image);
 
         return view('management', [
-            'title' => $title,
-            'product' => $product
+            'product' => $product,
         ]);
     }
 

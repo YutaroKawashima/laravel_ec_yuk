@@ -15,6 +15,12 @@ class CartService {
         $this->cart_repository = $cart_repository;
     }
 
+    public function getCart(){
+        $cart = \App\Cart::where('user_id', auth()->user()->id)->get();
+
+        return $cart;
+    }
+
     public function total($user_id){
 
         $cart = \App\Cart::where('user_id', $user_id)->get();
@@ -37,8 +43,15 @@ class CartService {
         $this->cart_repository->updateAmountRecordInCart($user,$request);
     }
 
-    public function finish($user){
+    public function getDeleteID($id){
 
-        $this->cart_repository->doShoppingFromCart($user);
+        $cart = \App\Cart::find($id);
+
+        return $cart;
+    }
+
+    public function finish(){
+
+        $this->cart_repository->doShoppingFromCart();
     }
 }

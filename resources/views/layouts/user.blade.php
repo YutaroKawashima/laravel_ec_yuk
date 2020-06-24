@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset = "UTF-8">
-        <title> {{ $title }} </title>
+        <title> @yield('title') </title>
         <link rel = "stylesheet" href = "{{ asset('css/style.css') }}">
     </head>
     <body>

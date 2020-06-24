@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', '商品管理ページ')
+
 @section('content')
     <section>
         <h2>商品の登録</h2>

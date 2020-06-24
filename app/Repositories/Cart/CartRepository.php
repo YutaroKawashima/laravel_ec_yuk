@@ -43,9 +43,9 @@ class CartRepository implements CartRepositoryInterface
         $amount->save();
     }
 
-    public function doShoppingFromCart($user){
+    public function doShoppingFromCart(){
 
-        $cart = \App\Cart::where('user_id', $user->id)->get();
+        $cart = \App\Cart::where('user_id', auth()->user()->id)->get();
 
         foreach ($cart as $cart_items) {
             $stock = \App\Stock::where('product_id', $cart_items->product_id)->first();

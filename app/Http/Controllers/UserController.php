@@ -13,12 +13,11 @@ class UserController extends Controller
     }
 
     public function top(){
-        $title = '商品一覧ページ';
+
         $product =  \App\Product::all();
 
         return view('top', [
-            'title' => $title,
-            'product' => $product
+            'product' => $product,
         ]);
     }
 

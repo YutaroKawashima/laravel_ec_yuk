@@ -1,5 +1,7 @@
 @extends('layouts.user')
 
+@section('title', '購入完了ページ')
+
 @section('content')
 <div class = "item-title">
     <div class = "item-area">

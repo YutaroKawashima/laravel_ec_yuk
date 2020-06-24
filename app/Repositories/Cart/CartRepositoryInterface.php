@@ -8,5 +8,5 @@ interface CartRepositoryInterface
 
     public function updateAmountRecordInCart($user,$request);
 
-    public function doShoppingFromCart($user);
+    public function doShoppingFromCart();
 }

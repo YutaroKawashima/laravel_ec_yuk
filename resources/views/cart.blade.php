@@ -1,5 +1,7 @@
 @extends('layouts.user')
 
+@section('title', 'カート内ページ')
+
 @section('content')
     <div class = "item-area">
         <h2> ショッピングカート</h2>
