@@ -10,9 +10,10 @@ class CartRepository implements CartRepositoryInterface
 {
     protected $cart;
 
-    public function __construct(Cart $cart)
+    public function __construct(Cart $cart,Stock $stock)
     {
         $this->cart = $cart;
+        $this->stock = $stock;
     }
 
     public function addProductToCart($user,$request){
@@ -48,11 +49,11 @@ class CartRepository implements CartRepositoryInterface
         $cart = \App\Cart::where('user_id', auth()->user()->id)->get();
 
         foreach ($cart as $cart_items) {
-            $stock = \App\Stock::where('product_id', $cart_items->product_id)->first();
+            $this->stock->where('product_id', $cart_items->product_id)->first();
 
-            $stock->stock = $stock->stock - $cart_items->amount;
+            $this->$stock->stock = $this->$stock->stock - $cart_items->amount;
 
-            $stock->save();
+            $this->$stock->save();
 
             $cart_items->delete();
         }
