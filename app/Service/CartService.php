@@ -21,9 +21,9 @@ class CartService {
         return $cart;
     }
 
-    public function total($user_id){
+    public function total(){
 
-        $cart = \App\Cart::where('user_id', $user_id)->get();
+        $cart = \App\Cart::where('user_id', auth()->user()->id)->get();
 
         $total_price = 0;
         foreach ( $cart as $cart_item ) {

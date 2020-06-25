@@ -16,44 +16,45 @@ class CartRepository implements CartRepositoryInterface
         $this->stock = $stock;
     }
 
-    public function addProductToCart($user,$request){
+    public function addProductToCart($user, $request)
+    {
         if ( $user->carts->where('product_id', $request->product_id)->isEmpty() ) {
 
-            $cart = new \App\Cart;
-
-            $cart->user_id = $user->id;
-            $cart->product_id = $request->product_id;
-            $cart->amount = 1;
+            $this->cart->user_id = $user->id;
+            $this->cart->product_id = $request->product_id;
+            $this->cart->amount = 1;
 
         } else {
 
-            $cart = $user->carts->where('product_id', $request->product_id)->first();
-            $cart->amount += 1;
+            $this->cart = $user->carts->where('product_id', $request->product_id)->first();
+            $this->cart->amount += 1;
         }
+
+        $this->cart->save();
+    }
+
+    public function updateAmountRecordInCart($user, $request)
+    {
+
+        $cart = $this->cart->where('user_id', $user->id)->where('product_id', $request->product_id)->first();
+
+        $cart->amount = $request->amount;
 
         $cart->save();
     }
 
-    public function updateAmountRecordInCart($user,$request){
+    public function doShoppingFromCart()
+    {
 
-        $cart = \App\Cart::where('user_id', $user->id)->get();
-        $amount = $cart->where('product_id',$request->product_id)->first();
-
-        $amount->amount = $request->amount;
-
-        $amount->save();
-    }
-
-    public function doShoppingFromCart(){
-
-        $cart = \App\Cart::where('user_id', auth()->user()->id)->get();
+        $cart = $this->cart->where('user_id', auth()->user()->id)->get();
 
         foreach ($cart as $cart_items) {
-            $this->stock->where('product_id', $cart_items->product_id)->first();
 
-            $this->$stock->stock = $this->$stock->stock - $cart_items->amount;
+            $stock = $this->stock->where('product_id', $cart_items->product_id)->first();
 
-            $this->$stock->save();
+            $stock->stock = $stock->stock - $cart_items->amount;
+
+            $stock->save();
 
             $cart_items->delete();
         }

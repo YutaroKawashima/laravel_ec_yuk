@@ -9,49 +9,46 @@ class ProductRepository implements ProductRepositoryInterface
 {
     protected $product;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product, Stock $stock)
     {
         $this->product = $product;
+        $this->stock = $stock;
     }
 
     public function addProductAndStockRecord($file_name,$request){
 
-        $product = new \App\Product;
+        $this->product->name = $request->name;
+        $this->product->price = $request->price;
+        $this->product->image = $file_name;
+        $this->product->status = $request->status;
+        $this->product->save();
 
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->image = $file_name;
-        $product->status = $request->status;
-        $product->save();
-
-        $stock = new \App\Stock;
-
-        $stock->product_id = $product->id;
-        $stock->stock = $request->stock;
-        $stock->save();
+        $this->stock->product_id = $product->id;
+        $this->stock->stock = $request->stock;
+        $this->stock->save();
 
     }
 
     public function changeStatusPrivateOrPublic($request){
 
-        $status = \App\Product::where('id', $request->product_id)->first();
+        $product = $this->product->where('id', $request->product_id)->first();
 
-        if ( $request->change_status === '公開 → 非公開' ) {
+        if ( $request->change_status === '0' ) {
 
-            $status->status = 0;
+            $product->status = 0;
 
-        } else if ( $request->change_status === '非公開 → 公開' ) {
+        } else if ( $request->change_status === '1' ) {
 
-            $status->status = 1;
+            $product->status = 1;
 
         }
 
-        $status->save();
+        $product->save();
     }
 
     public function deleteProductAndStock($id){
-        $product = \App\Product::find($id);
-        $stock = \App\Stock::where('product_id',$id);
+        $product = $this->product->find($id);
+        $stock = $this->stock->where('product_id',$id);
 
         $product->delete();
         $stock->delete();
