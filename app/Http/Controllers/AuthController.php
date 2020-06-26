@@ -4,16 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\AddRequest;
+use App\Http\Requests\StockRequest;
+use App\Service\ProductService;
+
 
 class AuthController extends Controller
 {
+
+    public function __construct(ProductService $product_service)
+    {
+        $this->middleware('auth_admin')->except('logout');
+
+        $this->product_service = $product_service;
+    }
+
     public function management() {
-        $title = '商品管理ページ';
+
         $product = \App\Product::all();
 
         return view('management', [
-            'title' => $title,
-            'product' => $product
+            'product' => $product,
         ]);
     }
 
@@ -23,29 +33,31 @@ class AuthController extends Controller
 
         $image = $request->file('image');
 
-        if (isset($image) === TRUE ) {
-            $ext = $image->guessExtension();
+        $this->product_service->add_product($request);
 
-            $file_name = str_random(20) . '{$ext}';
+        return redirect('/admin/management');
+    }
 
-            $path = $image->storeAs('photos', $file_name, 'public');
-        }
+    public function stock_change(StockRequest $request){
 
-        $product = new \App\Product;
+        $this->product_service->update_stock($request);
 
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->image = $file_name;
-        $product->status = $request->status;
-        $product->save();
+        return redirect('/admin/management');
+    }
 
+    public function status_change(Request $request){
 
-        $stock = new \App\Stock;
+        $this->product_service->update_status($request);
 
-        $stock->product_id = $product->id;
-        $stock->stock = $request->stock;
-        $stock->save();
+        return redirect('/admin/management');
 
-        return redirect('/management');
+    }
+
+    public function delete($id){
+
+        $this->product_service->delete_product($id);
+
+        return redirect('/admin/management');
+
     }
 }

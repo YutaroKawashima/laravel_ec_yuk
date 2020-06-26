@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -21,6 +21,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers {
         logout as doLogout;
+        login as doLogin;
     }
 
     /**
@@ -28,21 +29,45 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/top';
+    protected $redirectTo = 'admin/management';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
+    // public function __construct()
+    // {
+    //     $this->middleware('auth_admin')->except('logout');
+    // }
+
+    public function showAdminForm(){
+        return view('admin.login');
+    }
+
+    // public function guard()
+    // {
+    //     return Auth::guard('admin');
+    // }
+
+    public function login(Request $request) {
+
+        if ( $request->name === 'admin' ) {
+
+            $this->doLogin($request);
+
+            return redirect('admin/management');
+
+        } else {
+
+            return $this->doLogin($request);
+        }
+
     }
 
     public function logout(Request $request) {
         $this->doLogout($request);
 
-        return redirect('/login');
+        return redirect('/admin/login');
     }
 }

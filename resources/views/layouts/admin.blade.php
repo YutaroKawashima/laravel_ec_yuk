@@ -6,15 +6,13 @@
         <link rel = "stylesheet" href = "{{ asset('/css/style_auth.css') }}">
     </head>
     <body>
+
     <header>
         <div class = "item-area height-70px">
             <a href = "{{ url('management') }}">
                 <img class = "logo" src = "{{ asset('./storage/images/shop-logo.png') }}" alt = "CodeSHOP">
             </a>
             @guest
-                <a href="{{ url('register') }}" class="menu-item direct-R">
-                    Register
-                </a>
                 <a href="{{ url('admin/login') }}" class="menu-item direct-L">
                     Login
                 </a>

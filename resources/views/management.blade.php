@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', '商品管理ページ')
+
 @section('content')
     <section>
         <h2>商品の登録</h2>
@@ -7,7 +9,7 @@
             <span class = "red">{{ $error }}</span>
             @empty
         @endforelse
-        <form method="post" action="{{ url('/management') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ url('/admin/management') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div>
                 <label>
@@ -57,7 +59,8 @@
                 </tr>
             @forelse($product as $item)
                 <tr>
-                    <form method = "post">
+                    <form method = "post" action="{{ url('/admin/management/change') }}">
+                        {{ csrf_field() }}
                         <td>
                             <img class = "item-image" src = "{{ asset('./storage/photos/'.$item->image) }}">
                         </td>
@@ -69,31 +72,30 @@
                         </td>
                         <td>
                             <input type = "text" class = "input_text_width text_align_right" name = "update_stock" value = "{{ $item->stock->stock }}">
-                            <input type = "hidden" name = "product_id" value = "{{ $item->id }}">
-                            <input type = "hidden" name = "sql_kind" value = "update"> <br>
+                            <input type = "hidden" name = "product_id" value = "{{ $item->id }}"> <br>
                             <input type = "submit" value = "変更">
                         </td>
                     </form>
-                    <form method = "post">
+                    <form method = "post" action="{{ url('/admin/management/change_s') }}">
                         {{ csrf_field() }}
                         <td>
                             @if ($item->status === 1)
 
-                                <input type = "submit" name = "change_status" value  = "公開 → 非公開">
+                                <button type = "submit" name = "change_status" value  = "0"> 公開 → 非公開 </button>
 
                             @elseif ($item->status === 0)
 
-                                <input type = "submit" name = "change_status" value = "非公開 → 公開">
+                                <button type = "submit" name = "change_status" value = "1"> 非公開 → 公開 </button>
 
                             @endif
 
                             <input type = "hidden" name = "update_status" value = "{{ $item->status }}">
                             <input type = "hidden" name = "product_id" value = "{{ $item->id }}">
-                            <input type = "hidden" name = "sql_kind" value = "change">
                         </td>
                     </form>
-                    <form method = "post">
+                    <form method = "post" action="{{ url('/admin/management/'. $item->id) }}">
                         {{ csrf_field() }}
+                        {{ method_field('delete') }}
                         <td>
                             <input type = "submit" name = "delete_data" value = "削除">
 

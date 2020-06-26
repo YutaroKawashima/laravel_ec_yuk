@@ -1,8 +1,8 @@
-@extends('layouts.auth')
+@extends('layouts.admin')
 
 @section('content')
     <div class="login-area form-box">
-        <form method="post" action="{{ route('login') }}" class = "login-form">
+        <form method="post" action="{{ route('admin.login') }}" class = "login-form">
             {{ csrf_field() }}
             <div class="form-item form-title"> Login </div>
             <div class="form-item">
