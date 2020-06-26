@@ -16,6 +16,20 @@ class CartRepository implements CartRepositoryInterface
         $this->stock = $stock;
     }
 
+    public function getCartInformation()
+    {
+        $cart = $this->cart->where('user_id', auth()->user()->id)->get();
+
+        return $cart;
+    }
+
+    public function getCartInfoByID($id)
+    {
+        $cart = $this->cart->where('user_id', $id)->get();
+
+        return $cart;
+    }
+
     public function addProductToCart($user, $request)
     {
         if ( $user->carts->where('product_id', $request->product_id)->isEmpty() ) {

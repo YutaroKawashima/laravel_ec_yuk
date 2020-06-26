@@ -5,10 +5,9 @@
 @section('content')
     <div class = "item-area">
         <h2> ショッピングカート</h2>
-        @forelse($errors as $error)
+        @foreach($errors as $error)
             <p class = "red"> {{ $error }} </p>
-            @empty
-        @endforelse
+        @endforeach
         <div class = "item-title">
             <span class = "price-title">
                 価格
@@ -48,6 +47,7 @@
                 </div>
             </li>
             @empty
+            <p>商品がありません</p>
             @endforelse
         </ul>
         <div class = "item-area">

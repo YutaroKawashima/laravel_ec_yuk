@@ -16,14 +16,14 @@ class CartService {
     }
 
     public function getCart(){
-        $cart = \App\Cart::where('user_id', auth()->user()->id)->get();
+        $cart = $this->cart_repository->getCartInformation();
 
         return $cart;
     }
 
     public function total(){
 
-        $cart = \App\Cart::where('user_id', auth()->user()->id)->get();
+        $cart = $this->cart_repository->getCartInformation();
 
         $total_price = 0;
         foreach ( $cart as $cart_item ) {
@@ -45,7 +45,7 @@ class CartService {
 
     public function getDeleteID($id){
 
-        $cart = \App\Cart::find($id);
+        $cart = $this->cart_repository->getCartInfoByID($id);
 
         return $cart;
     }

@@ -12,7 +12,8 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function top(){
+    public function top()
+    {
 
         $product =  \App\Product::all();
 

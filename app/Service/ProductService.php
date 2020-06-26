@@ -13,6 +13,11 @@ class ProductService {
         $this->product_repository = $product_repository;
     }
 
+    public function getProduct()
+    {
+        $this->product_repository->getProductInformation();
+    }
+
     public function add_product($request){
 
         $file_name = '';

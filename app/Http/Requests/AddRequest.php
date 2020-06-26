@@ -39,7 +39,8 @@ class AddRequest extends FormRequest
         ];
     }
 
-    public function attributes(){
+    public function attributes()
+    {
         return [
             'name' => '商品名',
             'price' => '価格',
@@ -48,7 +49,8 @@ class AddRequest extends FormRequest
         ];
     }
 
-    public function messages() {
+    public function messages()
+    {
         return [
             'image.max' => 'ファイルは400MBまでのファイルをアップロードしてください',
             'required' => ':attributeを入力してください',

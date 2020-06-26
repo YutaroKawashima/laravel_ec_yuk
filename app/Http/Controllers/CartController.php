@@ -10,14 +10,14 @@ use App\Service\CartService;
 class CartController extends Controller
 {
 
-    public function __construct(CartService $cart_service){
+    public function __construct(CartService $cart_service)
+    {
 
         $this->cart_service = $cart_service;
     }
 
-    public function cart(){
-
-        $user=Auth::user();
+    public function cart()
+    {
 
         $cart= $this->cart_service->getCart();
         $total_price = $this->cart_service->total($user->id);
@@ -28,9 +28,8 @@ class CartController extends Controller
         ]);
     }
 
-    public function add_to_cart(Request $request){
-
-        $user=Auth::user();
+    public function add_to_cart(Request $request)
+    {
 
         $this->cart_service->add_product($user,$request);
 
@@ -39,15 +38,16 @@ class CartController extends Controller
         return redirect('/top');
     }
 
-    public function update_amount(CartRequest $request){
-        $user=Auth::user();
+    public function update_amount(CartRequest $request)
+    {
 
         $this->cart_service->update_cart($user,$request);
 
         return redirect('/cart');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
 
         $cart = $this->cart_service->getDeleteID($id);
 
@@ -57,7 +57,8 @@ class CartController extends Controller
 
     }
 
-    public function finish_shopping(){
+    public function finish_shopping()
+    {
 
         $title='購入完了ページ';
         $total_price = $this->cart_service->total(auth()->user()->id);

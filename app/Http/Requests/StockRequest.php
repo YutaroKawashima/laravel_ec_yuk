@@ -30,13 +30,15 @@ class StockRequest extends FormRequest
         ];
     }
 
-    public function attributes(){
+    public function attributes()
+    {
         return [
             'update_stock' => '在庫数',
         ];
     }
 
-    public function messages() {
+    public function messages()
+    {
         return [
             'required' => ':attributeを入力してください',
             'integer' => ':attributeは数値で記入してください',

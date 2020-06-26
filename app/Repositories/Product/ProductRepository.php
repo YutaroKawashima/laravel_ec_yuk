@@ -15,7 +15,15 @@ class ProductRepository implements ProductRepositoryInterface
         $this->stock = $stock;
     }
 
-    public function addProductAndStockRecord($file_name,$request){
+    public function getProductInformation()
+    {
+        $product = $this->product->all();
+
+        return $product;
+    }
+
+    public function addProductAndStockRecord($file_name,$request)
+    {
 
         $this->product->name = $request->name;
         $this->product->price = $request->price;
@@ -29,7 +37,8 @@ class ProductRepository implements ProductRepositoryInterface
 
     }
 
-    public function changeStatusPrivateOrPublic($request){
+    public function changeStatusPrivateOrPublic($request)
+    {
 
         $product = $this->product->where('id', $request->product_id)->first();
 
@@ -46,7 +55,8 @@ class ProductRepository implements ProductRepositoryInterface
         $product->save();
     }
 
-    public function deleteProductAndStock($id){
+    public function deleteProductAndStock($id)
+    {
         $product = $this->product->find($id);
         $stock = $this->stock->where('product_id',$id);
 

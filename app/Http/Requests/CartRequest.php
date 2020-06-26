@@ -30,13 +30,15 @@ class CartRequest extends FormRequest
         ];
     }
 
-    public function attributes(){
+    public function attributes()
+    {
         return [
             'amount' => '数量'
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'required' => ':attributeを入力してください',
             'integer' => ':attributeは数値で入力してください',
