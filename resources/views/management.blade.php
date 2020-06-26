@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', '商品管理ページ')
+
 @section('content')
     <section>
         <h2>商品の登録</h2>
@@ -79,11 +81,11 @@
                         <td>
                             @if ($item->status === 1)
 
-                                <input type = "submit" name = "change_status" value  = "公開 → 非公開">
+                                <button type = "submit" name = "change_status" value  = "0"> 公開 → 非公開 </button>
 
                             @elseif ($item->status === 0)
 
-                                <input type = "submit" name = "change_status" value = "非公開 → 公開">
+                                <button type = "submit" name = "change_status" value = "1"> 非公開 → 公開 </button>
 
                             @endif
 

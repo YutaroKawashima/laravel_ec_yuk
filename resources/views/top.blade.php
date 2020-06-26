@@ -1,5 +1,7 @@
 @extends('layouts.user')
 
+@section('title', '商品一覧ページ')
+
 @section('content')
 
     @forelse($errors as $error)

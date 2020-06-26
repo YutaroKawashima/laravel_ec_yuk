@@ -16,13 +16,13 @@ class CartController extends Controller
     }
 
     public function cart(){
+
         $user=Auth::user();
-        $title='カート内商品';
-        $cart=\App\Cart::where('user_id', $user->id)->get();
+
+        $cart= $this->cart_service->getCart();
         $total_price = $this->cart_service->total($user->id);
 
         return view('cart', [
-            'title' => $title,
             'cart' => $cart,
             'total_price' => $total_price,
         ]);
@@ -49,9 +49,9 @@ class CartController extends Controller
 
     public function delete($id){
 
-        $product = \App\Cart::find($id);
+        $cart = $this->cart_service->getDeleteID($id);
 
-        $product->delete();
+        $cart->delete();
 
         return redirect('/cart');
 
@@ -60,12 +60,11 @@ class CartController extends Controller
     public function finish_shopping(){
 
         $title='購入完了ページ';
-        $user=Auth::user();
-        $total_price = $this->cart_service->total($user->id);
+        $total_price = $this->cart_service->total(auth()->user()->id);
 
-        $cart = \App\Cart::where('user_id', $user->id)->get();
+        $cart= $this->cart_service->getCart();
 
-        $this->cart_service->finish($user);
+        $this->cart_service->finish();
 
         return view('finish', [
             'title' => $title,

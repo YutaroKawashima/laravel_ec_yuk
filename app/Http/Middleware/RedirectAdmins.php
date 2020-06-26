@@ -17,7 +17,7 @@ class RedirectAdmins
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::user()->name === 'admin' && auth()->check() ) {
+        if (auth()->check() && auth()->user()->name === 'admin' ) {
             return $next($request);
         }
 

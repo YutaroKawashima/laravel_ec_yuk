@@ -25,28 +25,16 @@ class AddRequest extends FormRequest
     {
         return [
             'name' => [
-                'required',
-                'string',
-                'max:20'
+                'required' | 'string' | 'max:20'
             ],
             'price' => [
-                'required',
-                'integer',
-                'regex:/^0$|^[1-9][0-9]*$/',
-                'between:1,1000000'
+                'required' | 'integer' | 'regex:/^0$|^[1-9][0-9]*$/' | 'between:1,1000000'
             ],
             'stock' => [
-                'required',
-                'integer',
-                'regex:/^0$|^[1-9][0-9]*$/',
-                'between:1,10000'
+                'required' | 'integer' | 'regex:/^0$|^[1-9][0-9]*$/' | 'between:1,10000'
             ],
             'image' => [
-                'file',
-                'image',
-                'max:400000',
-                'mimes:jpeg,png',
-                'dimensions:min_width=100,min_height=100,max_width=900,max_height=900'
+                'file' | 'image' | 'max:400000' | 'mimes:jpeg,png' | 'dimensions:min_width=100,min_height=100,max_width=900,max_height=900'
             ]
         ];
     }

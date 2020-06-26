@@ -10,45 +10,47 @@ class CartRepository implements CartRepositoryInterface
 {
     protected $cart;
 
-    public function __construct(Cart $cart)
+    public function __construct(Cart $cart,Stock $stock)
     {
         $this->cart = $cart;
+        $this->stock = $stock;
     }
 
-    public function addProductToCart($user,$request){
+    public function addProductToCart($user, $request)
+    {
         if ( $user->carts->where('product_id', $request->product_id)->isEmpty() ) {
 
-            $cart = new \App\Cart;
-
-            $cart->user_id = $user->id;
-            $cart->product_id = $request->product_id;
-            $cart->amount = 1;
+            $this->cart->user_id = $user->id;
+            $this->cart->product_id = $request->product_id;
+            $this->cart->amount = 1;
 
         } else {
 
-            $cart = $user->carts->where('product_id', $request->product_id)->first();
-            $cart->amount += 1;
+            $this->cart = $user->carts->where('product_id', $request->product_id)->first();
+            $this->cart->amount += 1;
         }
+
+        $this->cart->save();
+    }
+
+    public function updateAmountRecordInCart($user, $request)
+    {
+
+        $cart = $this->cart->where('user_id', $user->id)->where('product_id', $request->product_id)->first();
+
+        $cart->amount = $request->amount;
 
         $cart->save();
     }
 
-    public function updateAmountRecordInCart($user,$request){
+    public function doShoppingFromCart()
+    {
 
-        $cart = \App\Cart::where('user_id', $user->id)->get();
-        $amount = $cart->where('product_id',$request->product_id)->first();
-
-        $amount->amount = $request->amount;
-
-        $amount->save();
-    }
-
-    public function doShoppingFromCart($user){
-
-        $cart = \App\Cart::where('user_id', $user->id)->get();
+        $cart = $this->cart->where('user_id', auth()->user()->id)->get();
 
         foreach ($cart as $cart_items) {
-            $stock = \App\Stock::where('product_id', $cart_items->product_id)->first();
+
+            $stock = $this->stock->where('product_id', $cart_items->product_id)->first();
 
             $stock->stock = $stock->stock - $cart_items->amount;
 

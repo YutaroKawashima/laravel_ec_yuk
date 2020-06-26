@@ -25,10 +25,7 @@ class StockRequest extends FormRequest
     {
         return [
             'update_stock' => [
-                'required',
-                'integer',
-                'regex:/^0$|^[1-9][0-9]*$/',
-                'between:1,10000'
+                'required' | 'integer' | 'regex:/^0$|^[1-9][0-9]*$/' | 'between:1,10000'
             ],
         ];
     }
