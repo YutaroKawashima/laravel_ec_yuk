@@ -15,13 +15,15 @@ class CartService {
         $this->cart_repository = $cart_repository;
     }
 
-    public function getCart(){
+    public function getCart()
+    {
         $cart = $this->cart_repository->getCartInformation();
 
         return $cart;
     }
 
-    public function total(){
+    public function total()
+    {
 
         $cart = $this->cart_repository->getCartInformation();
 
@@ -33,7 +35,8 @@ class CartService {
         return $total_price;
     }
 
-    public function add_product($user,$request){
+    public function add_product($user,$request)
+    {
 
         $this->cart_repository->addProductToCart($user,$request);
     }
@@ -43,14 +46,16 @@ class CartService {
         $this->cart_repository->updateAmountRecordInCart($user,$request);
     }
 
-    public function getDeleteID($id){
+    public function getDeleteID($id)
+    {
 
         $cart = $this->cart_repository->getCartInfoByID($id);
 
         return $cart;
     }
 
-    public function finish(){
+    public function finish()
+    {
 
         $this->cart_repository->doShoppingFromCart();
     }
